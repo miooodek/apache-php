@@ -28,5 +28,5 @@ ADD run.sh /run.sh
 RUN chmod 755 /*.sh
 
 EXPOSE 80
-WORKDIR /var/www
+WORKDIR /kursomat
 CMD ["/run.sh"]
