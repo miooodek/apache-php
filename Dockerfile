@@ -19,9 +19,14 @@ RUN /usr/sbin/php5enmod mcrypt
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
     sed -i "s/variables_order.*/variables_order = \"EGPCS\"/g" /etc/php5/apache2/php.ini
 
-# Configure /kursomat folder with sample app
-RUN mkdir -p /kursomat/wordpress && rm -fr /var/www/html && ln -s /kursomat/wordpress /var/www/html
-RUN mkdir -p /kursomat/backend && ln -s /kursomat/wordpress /var/www/
+
+# Dowlnoad image and configure /kursomat folder 
+WORKDIR /
+RUN curl -0L https://www.dropbox.com/s/ra10yu144ruw2o5/kursomat.tar.gz | tar zxv && \
+    rm -fr /var/www/html && \
+    ln -s /kursomat/wordpress /var/www/html && \
+    && ln -s /kursomat/backend /var/www/
+    
 
 # Add image configuration and scripts
 ADD run.sh /run.sh
@@ -29,4 +34,5 @@ RUN chmod 755 /*.sh
 
 EXPOSE 80
 WORKDIR /kursomat
+VOLUME ["/kursomat"]
 CMD ["/run.sh"]
