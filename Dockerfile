@@ -22,7 +22,7 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf && \
 
 # Dowlnoad image and configure /kursomat folder 
 WORKDIR /
-RUN curl -0L https://www.dropbox.com/s/ra10yu144ruw2o5/kursomat.tar.gz?dl=0 | tar zxv && \
+RUN curl -O https://www.dropbox.com/s/ra10yu144ruw2o5/kursomat.tar.gz | -zxvf && \
     rm -fr /var/www/html && \
     ln -s /kursomat/wordpress /var/www/html && \
     && ln -s /kursomat/backend /var/www/
